@@ -1,0 +1,48 @@
+name: Trigger auto deployment for bansach-app
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/bansach-app-AutoDeployTrigger-c9da0c18-9aa2-4300-80cd-2db1276bca74.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.BANSACHAPP_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.BANSACHAPP_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.BANSACHAPP_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: 
+          registryUsername: ${{ secrets.BANSACHAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.BANSACHAPP_REGISTRY_PASSWORD }}
+          containerAppName: bansach-app
+          resourceGroup: tamld
+          imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+

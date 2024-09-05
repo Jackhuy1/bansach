@@ -36,9 +36,9 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           _dockerfilePathKey_: _dockerfilePath_
-          registryUrl: 
-          registryUsername: ${{ secrets.BANSACHAPP_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.BANSACHAPP_REGISTRY_PASSWORD }}
+          registryUrl: acraksweb.azurecr.io
+          registryUsername: acraksweb
+          registryPassword: EdPgIFP4q+ZVYQaA3HOxJ4rPgZryuxJxRJUF/2Pogr+ACRCL22lm
           containerAppName: bansach-app
           resourceGroup: tamld
           imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}

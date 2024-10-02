@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("tamld.mysql.database.azure.com","tamld","Cepimt@456789","bansach");
+$conn=mysqli_connect("webbanhang.cjoe08s4kpvt.ap-southeast-2.rds.amazonaws.com","admin","Pkt285941","bansach");
 // Check connection
 if ($conn->connect_error)
   {

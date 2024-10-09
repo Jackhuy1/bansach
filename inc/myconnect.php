@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("webbanhang.cjoe08s4kpvt.ap-southeast-2.rds.amazonaws.com","admin","Pkt285941","bansach");
+$conn=mysqli_connect("gawain-database.c3eks20smog5.ap-southeast-1.rds.amazonaws.com","admin","Tailu3881","bansach");
 // Check connection
 if ($conn->connect_error)
   {
